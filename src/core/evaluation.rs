@@ -95,7 +95,7 @@ pub fn evaluate(
                 Some(value) => {
                     evaluate(&Expression::Primitive(value.clone()), &Some(state.clone()))
                 }
-                None => Err(Error::InvalidExpression(expr.clone())),
+                None => Err(Error::UndefinedVariable(variable.clone())),
             },
             None => Err(Error::InvalidExpression(expr.clone())),
         },

@@ -1,21 +1,19 @@
-use crate::core::{expression, interpretation::interpret, primitives::Primitive};
+use crate::core::{expression, interpretation::interpret, primitives};
 
 #[macro_use]
 pub mod core;
 
 pub fn main() {
-    let expr = expr!(Let {
-        variable: expr_from!(Primitive::Variable("x".to_string(), 32)),
+    let expression = expr!(Let {
+        variable: var!("x".to_string(), 1),
         scope: expr!(Sum {
-            left: expr!(Use {
-                variable: "x".to_string()
+            left: expr!(Use { variable: "x".to_string() }),
+            right: expr!(Product {
+                left: expr_from!(Integer(2)),
+                right: expr_from!(Integer(3)),
             }),
-            right: expr_from!(Primitive::Integer(20)),
         }),
     });
-    println!("{:?}", expr);
 
-    let result = interpret(expr);
-
-    println!("{:?}", result);
+    let _ = interpret(expression);
 }

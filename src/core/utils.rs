@@ -4,8 +4,17 @@ macro_rules! expr {
     };
 }
 
+
 macro_rules! expr_from {
     ($($x:tt)*) => {
-        expr!(Primitive($($x)*))
+        expr!(Primitive(primitives::Primitive::$($x)*))
     };
 }
+
+// generate expression for a variable with a value and a name
+macro_rules! var {
+    ($name:expr, $value:expr) => {
+        expr!(Primitive(primitives::Primitive::Variable($name, $value)))
+    };
+}
+
