@@ -20,6 +20,10 @@ pub enum Expression {
         left: ExpressionRef,
         right: ExpressionRef,
     },
+    Divide {
+        left: ExpressionRef,
+        right: ExpressionRef,
+    },
     If {
         condition: ExpressionRef,
         then_branch: ExpressionRef,
@@ -31,11 +35,29 @@ pub enum Expression {
         right: ExpressionRef,
     },
     Let {
-        variable: ExpressionRef,
+        variables: Vec<(String, ExpressionRef)>,
         scope: ExpressionRef,
     },
     Use {
         variable: String,
     },
+    Assign {
+        variable: String,
+        value: ExpressionRef,
+    },
+    For {
+        variable: String,
+        from: ExpressionRef,
+        to: ExpressionRef,
+        body: ExpressionRef,
+    },
+    Print {
+        expression: ExpressionRef,
+    },
+    Chain {
+        left: ExpressionRef,
+        right: ExpressionRef,
+    },
+    RetrieveState(ExpressionRef),
 }
 pub type ExpressionRef = Rc<Expression>;

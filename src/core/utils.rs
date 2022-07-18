@@ -11,10 +11,9 @@ macro_rules! expr_from {
     };
 }
 
-// generate expression for a variable with a value and a name
 macro_rules! var {
     ($name:expr, $value:expr) => {
-        expr!(Primitive(primitives::Primitive::Variable($name, $value)))
+        ($name.to_string(), $value)
     };
 }
 
