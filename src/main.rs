@@ -4,8 +4,8 @@ use crate::core::{expression, interpretation::interpret, primitives};
 pub mod core;
 
 pub fn main() {
-    let program = expr!(Let {
-        variables: vec!(var!("x", expr_from!(Integer(1)))),
+    interpret(expr!(Let {
+        variables: vec![var!("x", expr_from!(Integer(1)))],
         scope: expr!(For {
             variable: "i".to_string(),
             from: expr_from!(Integer(0)),
@@ -27,11 +27,9 @@ pub fn main() {
                 }),
             }),
         }),
-    });
+    }));
 
-    let _ = interpret(program);
-
-    let new_program = expr!(For {
+    interpret(expr!(For {
         variable: "i".to_string(),
         from: expr_from!(Integer(0)),
         to: expr_from!(Integer(2)),
@@ -40,9 +38,7 @@ pub fn main() {
                 variable: "i".to_string(),
             })
         }),
-    });
-
-    let _ = interpret(new_program);
+    }));
 
     interpret(expr!(Let {
         variables: vec!(

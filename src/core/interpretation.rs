@@ -7,7 +7,7 @@ pub fn interpret(expr: ExpressionRef) -> Value {
         Ok(value) => {
             println!("it evaluated to {:?}", value);
             value
-        },
+        }
         Err(err) => panic!("{:?}", err),
     }
 }

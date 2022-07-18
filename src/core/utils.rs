@@ -4,7 +4,6 @@ macro_rules! expr {
     };
 }
 
-
 macro_rules! expr_from {
     ($($x:tt)*) => {
         expr!(Primitive(primitives::Primitive::$($x)*))
@@ -16,4 +15,3 @@ macro_rules! var {
         ($name.to_string(), $value)
     };
 }
-
