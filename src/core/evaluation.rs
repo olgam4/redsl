@@ -111,10 +111,7 @@ pub fn evaluate(
                                     Some(prev) => {
                                         let mut new = prev.clone();
                                         new.insert(variable.to_string(), current_value);
-                                        let state_value = evaluate(
-                                            &Expression::RetrieveState(body.clone()),
-                                            &Some(prev.clone()),
-                                        )?;
+                                        let state_value = evaluate(&body, &Some(prev.clone()))?;
                                         match state_value {
                                             Value::State(new_value) => previous_value = new_value,
                                             _ => (),
@@ -145,14 +142,13 @@ pub fn evaluate(
             Ok(Value::Unit)
         }
         Expression::Chain { left, right } => {
-            let state_value = evaluate(&Expression::RetrieveState(left.clone()), state)?;
+            let state_value = evaluate(&left, state)?;
             let resul = match state_value {
                 Value::State(state) => evaluate(&right, &state),
                 _ => evaluate(&right, state),
             };
             resul
         }
-        Expression::RetrieveState(expression) => evaluate(&expression, state),
         Expression::Assign { variable, value } => match state.clone() {
             Some(mut state) => {
                 let value = evaluate(&value, &Some(state.clone()))?;

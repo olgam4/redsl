@@ -58,6 +58,5 @@ pub enum Expression {
         left: ExpressionRef,
         right: ExpressionRef,
     },
-    RetrieveState(ExpressionRef),
 }
 pub type ExpressionRef = Rc<Expression>;
